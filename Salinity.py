@@ -278,5 +278,3 @@ plt.xlabel('Predicted Label')
 plt.ylabel('True Label')
 plt.savefig(os.path.join(MODEL_DIR, f'confusion_matrix_traditional_seed_{SEED}.png'))
 plt.show()
-
-print("--- Script Finished ---")
