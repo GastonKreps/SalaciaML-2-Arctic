@@ -15,7 +15,7 @@ This files contains the code to train a machine learning model for predicting da
 * TensorFlow & Keras
 * Scikit-learn
 * Seaborn
-* A data file named `UDASH-SML2A-Salinity.csv` in the same directory as the script, or the `DATA_FILE_PATH` variable updated accordingly.
+* A data file named `UDASH-SML2A-Salinity.csv` or `UDASH-SML2A-Temperature.csv` in the same directory as the script, or the `DATA_FILE_PATH` variable updated accordingly.
 
 ## How to Run:
 1.  Ensure all required libraries are installed (`pip install pandas matplotlib numpy tensorflow scikit-learn seaborn`).
