@@ -5,7 +5,7 @@ control (QC) of Arctic Ocean profile temperature and salinity data
 
 ## Train The Model - Salinity and Temperature
 
-This files contains the code to train a machine learning model for predicting data quality. Data can be download from https://www.pangaea.de/ 
+This files contains the code to train a machine learning model for predicting data quality. Data can be download from Pangaea (https://www.pangaea.de/)  
 
 ## Requirements:
 * Python 3.x
