@@ -12,7 +12,7 @@ Prepare your data exactly as in *TEST_DATA.csv*. It is crucial that
 you follow the column names.
 
 For temperature data:
-Prof_no,year,month,Longitude_[deg],Latitude_[deg],Depth_[m],Temp_[°C],Salinity_[psu]
+Prof_no,year,month,Longitude_[deg],Latitude_[deg],Depth_[m],Temp_[°C]
 
 For salinity data:
 Prof_no,year,month,Longitude_[deg],Latitude_[deg],Depth_[m],Salinity_[psu]
@@ -33,18 +33,7 @@ We have tested the methods within the following setup:
  - apt-get install python3.10
  - apt-get install python3-pip
 
-- pip3 install \\
-  pandas==2.0.3 \\
-  scikit-learn==1.3.1 \\
-  numpy==1.23 \\
-  tensorflow==2.13.1 \\
-  keras==2.13.1 \\
-  glob2==0.7 \\
-  Seawater==3.3.4 \\
-  Hampel==0.0.5 \\
-  joblib==1.5.1 \\
-  argparse==
-  tqdm==4.67.1
+- pip3 install pandas==2.0.3 scikit-learn==1.3.1 numpy==1.23  tensorflow==2.13.1 keras==2.13.1  glob2==0.7  Seawater==3.3.4 Hampel==0.0.5  joblib==1.5.1 tqdm==4.67.1
 
 ## Edits
 
