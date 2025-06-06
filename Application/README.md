@@ -45,7 +45,7 @@ input file and optional for the output file in the Python scripts:
 
 ## Application
 
-python3 ./App-SalaciaML-2-Arctic-Temperature.py
+python3 ./App-SalaciaML-2-Arctic-Temperature.py  
 python3 ./App-SalaciaML-2-Arctic-Salinity.py
 
 
