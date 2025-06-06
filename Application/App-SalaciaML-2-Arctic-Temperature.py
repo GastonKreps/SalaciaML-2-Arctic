@@ -15,7 +15,7 @@ warnings.filterwarnings(action='ignore', category=UserWarning, module='sklearn')
 def check_data_temperature(data_df):
     """Validates presence of essential columns for temperature processing."""
     # Core columns for processing and seawater functions
-    core_required = ['Prof_no', 'Temp_[°C]', 'Depth_[m]', 'Latitude_[deg]'] 
+    core_required = ['Prof_no', 'Temp_[degree C]', 'Depth_[m]', 'Latitude_[deg]'] 
     # Note: Depth can be calculated from Pressure if Lat is present,
     # but having Depth directly is simpler for gradient calculations.
     # If only Pressure is available, process_data will attempt conversion.
@@ -25,8 +25,8 @@ def check_data_temperature(data_df):
     has_pressure = 'Pressure_[dbar]' in data_df.columns
     has_lat = 'Latitude_[deg]' in data_df.columns
 
-    if not ('Temp_[°C]' in data_df.columns and 'Prof_no' in data_df.columns):
-        print(f"Error: Core columns 'Prof_no' or 'Temp_[°C]' missing.")
+    if not ('Temp_[degree C]' in data_df.columns and 'Prof_no' in data_df.columns):
+        print(f"Error: Core columns 'Prof_no' or 'Temp_[degree C]' missing.")
         return 2 # Critical failure
 
     if not (has_depth or (has_pressure and has_lat)):
@@ -72,7 +72,7 @@ def process_data_temperature(data_input):
 
     # Drop rows where essential columns for processing (Temp, Depth) might be NaN after all conversions
     # Prof_no should ideally not be NaN
-    essential_cols_for_dropna = ['Temp_[°C]', 'Depth_[m]', 'Prof_no']
+    essential_cols_for_dropna = ['Temp_[degree C]', 'Depth_[m]', 'Prof_no']
     nan_rows_before = data.isnull().any(axis=1).sum()
     if nan_rows_before > 0:
         data.dropna(subset=[col for col in essential_cols_for_dropna if col in data.columns], inplace=True)
@@ -92,7 +92,7 @@ def process_data_temperature(data_input):
         for profile_number in Data_bt.Prof_no.unique():
             profile = Data_bt[Data_bt.Prof_no == profile_number]
             Depth_bt_vals = profile['Depth_[m]'].values
-            Temp_bt_vals = profile['Temp_[°C]'].values
+            Temp_bt_vals = profile['Temp_[degree C]'].values
             current_top_outlier_indices, current_bottom_outlier_indices = [], []
             
             nanz = np.count_nonzero(np.isnan(Temp_bt_vals))
@@ -132,7 +132,7 @@ def process_data_temperature(data_input):
         all_profiles_grads=[] # Changed from d_grad_list to avoid confusion
         for prof_num in tqdm(unique_profil, desc="Calc D_T Grad (dD/dT)", leave=False, disable=True):
             profil=Data_grad_dt[Data_grad_dt["Prof_no"] == prof_num].reset_index(drop=True)
-            t_vals=profil['Temp_[°C]'].values
+            t_vals=profil['Temp_[degree C]'].values
             d_vals=profil['Depth_[m]'].values
             grad_prof=[-999.0] * len(t_vals) # Initialize for all points in profile
             if len(d_vals) > 1: # Need at least two points to calculate a gradient
@@ -156,7 +156,7 @@ def process_data_temperature(data_input):
         all_profiles_grads=[] # Changed from d_grad_list
         for prof_num in tqdm(unique_profil, desc="Calc T_D Grad (dT/dD)", leave=False, disable=True):
             profil=Data_grad_td[Data_grad_td["Prof_no"] == prof_num].reset_index(drop=True)
-            t_vals=profil['Temp_[°C]'].values
+            t_vals=profil['Temp_[degree C]'].values
             d_vals=profil['Depth_[m]'].values
             grad_prof=[-999.0] * len(t_vals) # Initialize for all points
             if len(d_vals) > 1:
@@ -209,7 +209,7 @@ def process_data_temperature(data_input):
         for profile_number in tqdm(Data_small_t.Prof_no.unique(), desc="Small Temp Spikes", leave=False, disable=True):
             profile = Data_small_t[Data_small_t.Prof_no == profile_number].copy() # Work on copy of profile
             Depth_small_t_vals = profile['Depth_[m]'].values
-            Temp_small_t_vals = profile['Temp_[°C]'].values
+            Temp_small_t_vals = profile['Temp_[degree C]'].values
             
             temp_gradient_vals = np.array([])
             if len(Temp_small_t_vals) > 1:
@@ -314,7 +314,7 @@ def process_data_temperature(data_input):
     def _miss_temperature_value(Data_miss_t):
         """Flags missing (-999 or NaN) temperature values."""
         qf_df = pd.DataFrame(index=Data_miss_t.index, columns=['QF_trad_miss'], data=0)
-        missing_condition = (Data_miss_t['Temp_[°C]'] == -999) | (Data_miss_t['Temp_[°C]'].isnull())
+        missing_condition = (Data_miss_t['Temp_[degree C]'] == -999) | (Data_miss_t['Temp_[degree C]'].isnull())
         qf_df.loc[missing_condition, 'QF_trad_miss'] = 5
         return qf_df[['QF_trad_miss']]
      
@@ -368,7 +368,7 @@ def predict_data_temperature(data_pred, model, scaler):
     # These are the 8 features the temperature model was trained on
     col_names = [
         'year', 'month', 'Longitude_[deg]', 'Latitude_[deg]', 'Depth_[m]',
-        'Temp_[°C]',
+        'Temp_[degree C]',
         'gradientT_D', # dT/dD
         'gradientD_T'  # dD/dT
     ]
@@ -414,7 +414,7 @@ def predict_data_temperature(data_pred, model, scaler):
 if __name__ == "__main__":
     """Main script to load data, apply traditional and ML QC for temperature, and save results."""
     default_input_file = 'TEST_DATA.csv' # Use the same test data for now
-    default_output_file = 'Temperature_Output_Salacial.csv' 
+    default_output_file = 'Temperature_Output_Salacia.csv' 
     default_model_file = 'model_temp.h5' 
     default_scaler_file = 'scaler_temp.pkl'
     

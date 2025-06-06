@@ -313,7 +313,7 @@ def predict_data_salinity(data_df, model, scaler):
 if __name__ == "__main__":
     """Main script to load data, apply traditional and ML QC, and save results."""
     default_input_file = 'TEST_DATA.csv' 
-    default_output_file = 'Salinity_Output_Salacial.csv' 
+    default_output_file = 'Salinity_Output_Salacia.csv' 
     default_model_file = 'model_sal.h5' 
     default_scaler_file = 'scaler_sal.pkl'
     
