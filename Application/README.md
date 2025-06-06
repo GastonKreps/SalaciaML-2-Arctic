@@ -51,7 +51,7 @@ python3 ./App-SalaciaML-2-Arctic-Salinity.py
 
 ## Output
 
-Will be the same file with 2 columns added, *Trad_QF_Salinity*,
+Will be the same as the input data file with 2 columns added, *Trad_QF_Salinity*,
 representing the classical flags and *ML_QF_Salinity*, which are the final QC flags.
 A *0* means "good" data, a *2* depicts a "subspect gradient" and a *4* represents a potential "spike".
 
