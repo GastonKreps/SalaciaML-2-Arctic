@@ -17,6 +17,10 @@ access to our method, we have implemented SalaciaML-2-Arctic as a web
 service at https://mvre.autoqc.cloud.awi.de, where users simply upload
 their data for the QC without programming or any extra software installation.
 
+### License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 
 <!-- This files contains the code to train a machine learning model for predicting data quality. Data can be download from Pangaea (https://www.pangaea.de/)   -->
 
