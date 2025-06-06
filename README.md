@@ -5,6 +5,15 @@ control (QC) of Arctic Ocean profile temperature and salinity data.
 
 Details are explained in our paper published in *Frontiers of Marine Science*, named **SalaciaML-2-Arctic -- A deep learning quality control algorithm for arctic ocean temperature and salinity data**.
 
+
+## Limitations
+
+*SalaciaML-2-Arctic* is restricted to work correctly only for data
+similar to UDASH, i.e. temperature and salinity profiles, measured by
+CTD, bottle samples, mechanical thermographs and expendable
+thermographs, located north of 65 °N.
+
+
 ## Training / Reproduce
 
 The folder Training contains all information how to reproduce our analysis. Further the code can be used to extend or improve our algorithms.
