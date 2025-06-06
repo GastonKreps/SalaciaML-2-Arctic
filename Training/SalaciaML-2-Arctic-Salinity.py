@@ -21,7 +21,7 @@ pd.options.mode.chained_assignment = None
 
 # Data and Model Paths
 # Original path from notebook: f'/UDASH-SML2A-Salinity.csv'
-DATA_FILE_PATH = 'UDASH-SML2A-Salinity.csv' # <<<< UPDATE THIS PATH if your data file is elsewhere
+DATA_FILE_PATH = 'UDASH-SML2A-Salinity_test.csv' # <<<< UPDATE THIS PATH if your data file is elsewhere
 MODEL_DIR = './model_salinity_output'
 RESULTS_FILE_PATH = os.path.join(MODEL_DIR, 'model_results_salinity.txt')
 

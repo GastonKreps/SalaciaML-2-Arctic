@@ -13,6 +13,16 @@ Name of the data files should be
 - UDASH-SML2A-Salinity.csv
 
 
+## Testing
+
+Just for technical testing purposes you can use the here provided files:
+- UDASH-SML2A-Temperature_test.csv
+- UDASH-SML2A-Salinity_test.csv
+
+Note that these are very small files to check if the scripts are
+working. They will not produce scientifically meaningful output.
+
+
 ## Environment
 
 We have tested the methods within the following setup:
@@ -29,5 +39,6 @@ We have tested the methods within the following setup:
 ## Training:
 
 - Place the *UDASH-SML2A-Salinity.csv* or *UDASH-SML2A-Temperature.csv* file and the python scripts in the same folder.
+- Change the input file names in the Python scripts to fit to the input data.
 - Run the script: *python3 SalaciaML-2-Arctic-Salinity.py* or *python3 SalaciaML-2-Arctic-Temperature.py*.
 - Output (model files, history, plots) will be saved in the *./model_output/* directory.
