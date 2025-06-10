@@ -180,7 +180,7 @@ if not os.path.exists(saved_model_file):
     print("Class weights not used for salinity model training (as per original notebook).")
     results_output.append("Class weights not used for salinity model training.\n")
 
-    checkpoint = ModelCheckpoint(MODEL_CHECKPOINT_FILE, monitor='val_loss', verbose=0, save_best_only=True, mode='min')
+    checkpoint = ModelCheckpoint(MODEL_CHECKPOINT_FILE, monitor='val_loss', verbose=1, save_best_only=True, mode='min')
     callbacks_list = [checkpoint]
     
     print("Starting model training...")
