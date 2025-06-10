@@ -41,4 +41,4 @@ We have tested the methods within the following setup:
 - Place the *UDASH-SML2A-Salinity.csv* or *UDASH-SML2A-Temperature.csv* file and the python scripts in the same folder.
 - Change the input file names in the Python scripts to fit to the input data.
 - Run the script: *python3 SalaciaML-2-Arctic-Salinity.py* or *python3 SalaciaML-2-Arctic-Temperature.py*.
-- Output (model files, history, plots) will be saved in the *./model_output/* directory.
+- Output (model files, history, plots) will be saved in the *./model_salinity_output/* and *./model_temperature_output/* directory, respectively.
