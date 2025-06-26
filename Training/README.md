@@ -17,7 +17,7 @@ Name of the data files should be
 
 Just for technical testing purposes you can use the here provided files:
 - UDASH-SML2A-Temperature_test.csv
-- UDASH-SML2A-Salinity_test.csv
+- UDASH-SML2A-Salinity-test.csv
 
 Note that these are very small files to check if the scripts are
 working. They will not produce scientifically meaningful output.
