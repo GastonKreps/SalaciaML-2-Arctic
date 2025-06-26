@@ -72,7 +72,7 @@ bad_data['Sal_Trad_QF'].replace([2, 4], 1, inplace=True)
 print(f"Data processed. Shape of the final dataset for training/testing: {bad_data.shape}")
 
 
-# --- 4. Feature Engineering and Data Splitting ---
+# --- 4. Data Splitting ---
 
 # Define the features to be used for training the model
 features = [
