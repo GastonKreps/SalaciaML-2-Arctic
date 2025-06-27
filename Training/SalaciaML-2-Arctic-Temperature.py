@@ -37,10 +37,10 @@ pd.options.mode.chained_assignment = None
 
 # Load the pre-cleaned dataset
 try:
-    data = pd.read_csv('UDASH-SML2A-Temperature-test.csv')
-    print("Dataset 'UDASH-SML2A-Temperature-test.csv' loaded successfully.")
+    data = pd.read_csv('UDASH-Temperature-full.csv')
+    print("Dataset 'UDASH-Temperature-full.csv' loaded successfully.")
 except FileNotFoundError:
-    print("Error: 'UDASH-SML2A-Temperature-test.csv' not found.")
+    print("Error: 'UDASH-Temperature-full.csv' not found.")
     print("Please ensure the cleaned data file is in the same directory.")
     exit()
 
@@ -81,7 +81,7 @@ print(f"Data processed. Shape of the final dataset for training/testing: {bad_da
 
 # Define the features to be used for training the model
 features = [
-    'year', 'month', 'Longitude_[deg]', 'Latitude_[deg]', 'Pressure_[dbar]',
+    'year', 'month', 'Longitude_[deg]', 'Latitude_[deg]', 'Depth_[m]',
     'Temperature_[degC]', 'Temp_gradient_[degC/m]', 'Temp_gradient_[m/degC]'
 ]
 target = 'QF'
