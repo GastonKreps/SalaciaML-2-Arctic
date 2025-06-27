@@ -39,9 +39,7 @@ We have tested the methods within the following setup:
 ## Edits
 
 If you want to use your own data, you have to change the name of the
-input file and optional for the output file in the Python scripts:
-- App-SalaciaML-2-Arctic-Temperature.py: Line 416 and 417
-- App-SalaciaML-2-Arctic-Salinity.py: Line 315 and 316
+input file *TEST_DATA.csv* and optional for the output file in the Python scripts.
 
 
 ## Application
