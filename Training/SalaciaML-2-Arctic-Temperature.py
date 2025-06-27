@@ -177,7 +177,7 @@ plt.xlabel('Epoch')
 plt.legend()
 plt.grid(True)
 plt.savefig(os.path.join(OUTPUT_DIR, 'model_loss_curve_temp.png'), dpi=300)
-plt.show()
+# plt.show()
 
 # Find the best threshold from the validation set
 y_pred_probs_val = best_model.predict(X_val).ravel()
@@ -198,7 +198,7 @@ plt.ylabel('True Positive Rate')
 plt.legend()
 plt.grid(True)
 plt.savefig(os.path.join(OUTPUT_DIR, 'roc_curve_temp.png'), dpi=300)
-plt.show()
+# plt.show()
 
 # Evaluate on the unseen test set
 print("\n--- Final Evaluation on Test Set ---")
@@ -227,6 +227,6 @@ axes[1].set_ylabel('True Label')
 
 plt.tight_layout()
 plt.savefig(os.path.join(OUTPUT_DIR, 'confusion_matrices_temp.png'), dpi=300)
-plt.show()
+# plt.show()
 
 print("\n--- Script Finished ---")

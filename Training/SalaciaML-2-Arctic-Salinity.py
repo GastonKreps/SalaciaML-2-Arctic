@@ -25,7 +25,7 @@ np.random.seed(SEED)
 tf.random.set_seed(SEED)
 
 # Define the output directory for all artifacts
-OUTPUT_DIR = 'model_output'
+OUTPUT_DIR = 'model_output_sal'
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 print(f"All outputs will be saved to the '{OUTPUT_DIR}/' directory.")
 
@@ -166,7 +166,7 @@ plt.xlabel('Epoch')
 plt.legend()
 plt.grid(True)
 plt.savefig(os.path.join(OUTPUT_DIR, 'model_loss_curve_sal.png'), dpi=300)
-plt.show()
+# plt.show()
 
 # Find the best threshold from the validation set
 y_pred_probs_val = best_model.predict(X_val).ravel()
@@ -187,7 +187,7 @@ plt.ylabel('True Positive Rate')
 plt.legend()
 plt.grid(True)
 plt.savefig(os.path.join(OUTPUT_DIR, 'roc_curve_sal.png'), dpi=300)
-plt.show()
+# plt.show()
 
 # Evaluate on the unseen test set
 print("\n--- Final Evaluation on Test Set ---")
@@ -217,6 +217,6 @@ axes[1].set_ylabel('True Label')
 
 plt.tight_layout()
 plt.savefig(os.path.join(OUTPUT_DIR, 'confusion_matrices_sal.png'), dpi=300)
-plt.show()
+# plt.show()
 
 print("\n--- Script Finished ---")
