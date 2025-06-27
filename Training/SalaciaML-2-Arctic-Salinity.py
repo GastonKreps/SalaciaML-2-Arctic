@@ -12,10 +12,11 @@ import pickle
 import os
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import confusion_matrix, roc_curve
-from keras.models import Sequential, load_model
-from keras.layers import Dense
-from keras import initializers
-from keras.callbacks import ModelCheckpoint
+from tensorflow.keras.models import Sequential, load_model
+from tensorflow.keras.layers import Dense
+from tensorflow.keras import initializers
+from tensorflow.keras.callbacks import ModelCheckpoint
+from sklearn.utils.class_weight import compute_class_weight
 
 # --- 2. Configuration & Setup ---
 
@@ -36,10 +37,10 @@ pd.options.mode.chained_assignment = None
 
 # Load the pre-cleaned dataset
 try:
-    data = pd.read_csv('UDASH-SML2A-Salinity-test.csv')
-    print("Dataset 'UDASH-SML2A-Salinity-test.csv' loaded successfully.")
+    data = pd.read_csv('UDASH_Salinity_cleaned.csv')
+    print("Dataset 'UDASH_Salinity_cleaned' loaded successfully.")
 except FileNotFoundError:
-    print("Error: 'UDASH-SML2A-Salinity-test.csv' not found.")
+    print("Error: 'UDASH_Salinity_cleaned.csv' not found.")
     print("Please ensure the cleaned data file is in the same directory.")
     exit() # Exit the script if the file doesn't exist
 
@@ -131,6 +132,10 @@ model = Sequential([
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 model.summary()
 
+# Calculate class weights to handle imbalance
+class_weights_values = compute_class_weight('balanced', classes=np.unique(y_train), y=y_train)
+class_weight = {int(k): v for k, v in zip(np.unique(y_train), class_weights_values)}
+
 # Define a checkpoint to save the best model
 checkpoint_filepath = os.path.join(OUTPUT_DIR, "best_salinity_model.keras")
 model_checkpoint_callback = ModelCheckpoint(
@@ -139,13 +144,14 @@ model_checkpoint_callback = ModelCheckpoint(
 # Train the model
 print("\nStarting model training...")
 history = model.fit(
-    X_train, y_train,
+    X_train, y_train.values,  # Convert pandas Series to NumPy array
     epochs=1500,
     batch_size=16384,
     verbose=0,
-    validation_data=(X_val, y_val),
+    validation_data=(X_val, y_val.values), # Convert pandas Series to NumPy array
     shuffle=True,
-    callbacks=[model_checkpoint_callback]
+    callbacks=[model_checkpoint_callback],
+    class_weight=class_weight
 )
 print("Model training complete.")
 
