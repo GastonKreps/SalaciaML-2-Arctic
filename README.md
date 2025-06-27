@@ -3,7 +3,7 @@
 We have extended a classical algorithm by a deep learning neural network to support the quality
 control (QC) of Arctic Ocean profile temperature and salinity data.
 
-Details are explained in our paper published in *Frontiers of Marine Science*, named **SalaciaML-2-Arctic -- A deep learning quality control algorithm for arctic ocean temperature and salinity data**.
+Details are explained in our paper submitted in *Frontiers of Marine Science*, named **SalaciaML-2-Arctic -- A deep learning quality control algorithm for arctic ocean temperature and salinity data**.
 
 
 ## Limitations
