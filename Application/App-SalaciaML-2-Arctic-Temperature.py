@@ -16,7 +16,7 @@ from tqdm import tqdm
 # --- 2. Data Validation ---
 def check_data_temperature(data_df):
     """Validates presence of essential columns for temperature processing."""
-    core_required = ['Prof_no', 'Temp_[°C]', 'Depth_[m]']
+    core_required = ['Prof_no', 'Temperature_[degC]', 'Depth_[m]']
     
     missing_core = [col for col in core_required if col not in data_df.columns]
     
@@ -47,7 +47,7 @@ def process_data_temperature(data_input):
         data['Trad_QF_Temp'] = 0
         return data
         
-    data.dropna(subset=['Temp_[°C]', 'Depth_[m]', 'Prof_no'], inplace=True)
+    data.dropna(subset=['Temperature_[degC]', 'Depth_[m]', 'Prof_no'], inplace=True)
     if data.empty: return data
 
     # --- Nested QC Helper Functions ---
@@ -55,7 +55,7 @@ def process_data_temperature(data_input):
         outlier_indices = []
         for pid in df['Prof_no'].unique():
             prof = df[df['Prof_no'] == pid]
-            d, t = prof['Depth_[m]'].values, prof['Temp_[°C]'].values
+            d, t = prof['Depth_[m]'].values, prof['Temperature_[degC]'].values
             if len(t[~np.isnan(t)]) < 2: continue
             
             h = 0
@@ -73,7 +73,7 @@ def process_data_temperature(data_input):
         grads = {'Temp_gradient_[degC/m]': [], 'Temp_gradient_[m/degC]': []}
         for pid in df['Prof_no'].unique():
             prof = df[df['Prof_no'] == pid].reset_index(drop=True)
-            t, d = prof['Temp_[°C]'].values, prof['Depth_[m]'].values
+            t, d = prof['Temperature_[degC]'].values, prof['Depth_[m]'].values
             
             t_d_grad = np.full_like(t, -999.0, dtype=float)
             d_t_grad = np.full_like(t, -999.0, dtype=float)
@@ -98,7 +98,7 @@ def process_data_temperature(data_input):
             profile = df[df['Prof_no'] == pid].copy()
             if not (len(profile) > 7 and profile['Depth_[m]'].iloc[-1] > 100): continue
 
-            grads = np.concatenate([[np.nan], np.diff(profile['Temp_[°C]'])])
+            grads = np.concatenate([[np.nan], np.diff(profile['Temperature_[degC]'])])
             grads[profile['Depth_[m]'] < 100] = np.nan
             
             series = pd.Series(grads).dropna()
@@ -129,7 +129,7 @@ def process_data_temperature(data_input):
         return df[cond & (grad_col != -999)].index
         
     def _miss_temperature_value(df):
-        return df[df['Temp_[°C]'].isnull() | (df['Temp_[°C]'] == -999)].index
+        return df[df['Temperature_[degC]'].isnull() | (df['Temperature_[degC]'] == -999)].index
 
     # --- Main processing flow ---
     data['Trad_QF_Temp'] = 0
@@ -151,7 +151,7 @@ def predict_data_temperature(data_df, model, scaler):
     """Applies a pre-trained ML model for temperature QC."""
     features = [
         'year', 'month', 'Longitude_[deg]', 'Latitude_[deg]', 'Depth_[m]',
-        'Temp_[°C]', 'Temp_gradient_[degC/m]', 'Temp_gradient_[m/degC]'
+        'Temperature_[degC]', 'Temp_gradient_[degC/m]', 'Temp_gradient_[m/degC]'
     ]
     
     missing_cols = [col for col in features if col not in data_df.columns]
