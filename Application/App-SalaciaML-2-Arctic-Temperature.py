@@ -44,7 +44,7 @@ def process_data_temperature(data_input):
         print("Critical Error: 'Depth_[m]' column is not available. Cannot proceed with gradient QC.")
         data['Temp_gradient_[degC/m]'] = np.nan
         data['Temp_gradient_[m/degC]'] = np.nan
-        data['Trad_QF_Temp'] = 0
+        data['Trad_QF_Temperature'] = 0
         return data
         
     data.dropna(subset=['Temperature_[degC]', 'Depth_[m]', 'Prof_no'], inplace=True)
@@ -132,17 +132,17 @@ def process_data_temperature(data_input):
         return df[df['Temperature_[degC]'].isnull() | (df['Temperature_[degC]'] == -999)].index
 
     # --- Main processing flow ---
-    data['Trad_QF_Temp'] = 0
+    data['Trad_QF_Temperature'] = 0
     
     gradient_data = _calculate_gradients(data)
     data['Temp_gradient_[degC/m]'] = gradient_data['Temp_gradient_[degC/m]']
     data['Temp_gradient_[m/degC]'] = gradient_data['Temp_gradient_[m/degC]']
 
-    data.loc[_suspect_gradient_temp(data), 'Trad_QF_Temp'] = 2
-    data.loc[_bottom_top_temp_outliers(data), 'Trad_QF_Temp'] = 4
-    data.loc[_traditional_outlier_detection_temp(data), 'Trad_QF_Temp'] = 4
-    data.loc[_small_temp_outliers_below_mixed_layer(data), 'Trad_QF_Temp'] = 4
-    data.loc[_miss_temperature_value(data), 'Trad_QF_Temp'] = 5
+    data.loc[_suspect_gradient_temp(data), 'Trad_QF_Temperature'] = 2
+    data.loc[_bottom_top_temp_outliers(data), 'Trad_QF_Temperature'] = 4
+    data.loc[_traditional_outlier_detection_temp(data), 'Trad_QF_Temperature'] = 4
+    data.loc[_small_temp_outliers_below_mixed_layer(data), 'Trad_QF_Temperature'] = 4
+    data.loc[_miss_temperature_value(data), 'Trad_QF_Temperature'] = 5
     
     return data
 
@@ -207,18 +207,18 @@ if __name__ == "__main__":
             print("Processing resulted in an empty DataFrame. Exiting.")
             exit()
             
-        processed_data['ML_QF_Temp'] = 0
-        bad_data_subset = processed_data[processed_data['Trad_QF_Temp'] != 0].copy()
+        processed_data['ML_QF_Temperature'] = 0
+        bad_data_subset = processed_data[processed_data['Trad_QF_Temperature'] != 0].copy()
 
         if not bad_data_subset.empty:
             print(f"Applying ML model to {len(bad_data_subset)} rows...")
             ml_preds = predict_data_temperature(bad_data_subset, model_temp, scaler_temp)
-            processed_data.loc[bad_data_subset.index, 'ML_QF_Temp'] = ml_preds * bad_data_subset['Trad_QF_Temp'].astype(int)
+            processed_data.loc[bad_data_subset.index, 'ML_QF_Temperature'] = ml_preds * bad_data_subset['Trad_QF_Temperature'].astype(int)
             print("ML predictions finished.")
         else:
             print("No data flagged by traditional QC. ML prediction step skipped.")
         
-        final_cols = original_columns + ['Trad_QF_Temp', 'ML_QF_Temp']
+        final_cols = original_columns + ['Trad_QF_Temperature', 'ML_QF_Temperature']
         final_df = processed_data[[col for col in final_cols if col in processed_data.columns]]
         
         try:
