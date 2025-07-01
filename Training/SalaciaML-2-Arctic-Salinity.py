@@ -203,7 +203,7 @@ predictions_test_labels = (predictions_test >= best_threshold).astype(int)
 # This is the crucial step that was incorrect before.
 # We add the predictions back to the original `test_data` DataFrame.
 test_data['ML'] = predictions_test_labels
-test_data['ML_TQF'] = test_data['ML'] * test_data['Sal_Trad_QF']
+test_data['ML_TQF'] = test_data['ML'] #* test_data['Sal_Trad_QF']
 
 # Create confusion matrices
 cm_ml_tqf = confusion_matrix(test_data[target], test_data['ML_TQF'])

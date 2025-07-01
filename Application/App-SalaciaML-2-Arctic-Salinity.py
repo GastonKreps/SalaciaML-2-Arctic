@@ -173,8 +173,8 @@ if __name__ == "__main__":
     try:
         input_data = pd.read_csv(args.input, encoding='latin1')
         # Handle duplicate QF columns by renaming them
-        if 'QF' in input_data.columns and 'QF.' in input_data.columns:
-            input_data.rename(columns={'QF': 'QF_Temp', 'QF.': 'QF_Sal'}, inplace=True)
+        if 'QF' in input_data.columns and 'QF.1' in input_data.columns:
+            #input_data.rename(columns={'QF': 'QF_Temp', 'QF.': 'QF_Sal'}, inplace=True)
     except Exception as e:
         print(f"Error reading {args.input}: {e}. Exiting."); exit(1)
 

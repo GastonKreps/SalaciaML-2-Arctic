@@ -192,7 +192,7 @@ if __name__ == "__main__":
         # Pandas auto-renames the second 'QF' to 'QF.1'
         if 'QF' in input_data.columns and 'QF.1' in input_data.columns:
             print("Info: Renaming duplicate 'QF' columns to 'QF_Temp' and 'QF_Sal'.")
-            input_data.rename(columns={'QF': 'QF_Temp', 'QF.1': 'QF_Sal'}, inplace=True)
+            #input_data.rename(columns={'QF': 'QF_Temp', 'QF.1': 'QF_Sal'}, inplace=True)
     except Exception as e:
         print(f"Error reading {args.input}: {e}. Exiting."); exit(1)
 
