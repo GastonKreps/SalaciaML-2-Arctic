@@ -33,8 +33,8 @@ We have tested the methods within the following setup:
  - apt-get install python3.10
  - apt-get install python3-pip
 
-- pip3 install pandas==2.0.3 scikit-learn==1.3.1 numpy==1.26.4  glob2==0.7 Seawater==3.3.4 Hampel==0.0.5 joblib==1.4.2 tqdm==4.67.1 glob2==0.7 matplotli\
-b==3.7.5 seaborn==0.13.2 keras==3.10.0 tensorflow==2.16.1
+- pip3 install pandas==2.0.3 scikit-learn==1.3.1 numpy==1.26.4  glob2==0.7 Seawater==3.3.4 Hampel==0.0.5 joblib==1.4.2 tqdm==4.67.1 glob2==0.7 
+  matplotlib==3.7.5 seaborn==0.13.2 keras==3.10.0 tensorflow==2.16.1
 
 
 ## Edits
