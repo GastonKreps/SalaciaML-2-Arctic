@@ -165,7 +165,7 @@ def predict_data_temperature(data_df, model, scaler):
     if features_df.empty:
         return np.zeros(len(data_df))
     
-    standardized_values = scaler.transform(features_df.values)
+    standardized_values = scaler.transform(features_df)
     predictions = model.predict(standardized_values).ravel()
     threshold = 0.37288
     return (predictions > threshold).astype(int)

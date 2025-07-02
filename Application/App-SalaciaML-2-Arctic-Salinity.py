@@ -135,7 +135,7 @@ def predict_data_salinity(data_df, model, scaler):
     """Applies a pre-trained ML model for salinity QC."""
     features = [
         'year', 'month','Longitude_[deg]', 'Latitude_[deg]', 'Depth_[m]',
-        'Salinity_[psu]', 'Sal_gradient_[psu/m]', 'Sal_gradient_[m/psu]'
+        'Salinity_[psu]', 'Sal_gradient_[m/psu]', 'Sal_gradient_[psu/m]'
     ]
     
     missing_cols = [col for col in features if col not in data_df.columns]
@@ -149,7 +149,7 @@ def predict_data_salinity(data_df, model, scaler):
     if features_df.empty:
         return np.zeros(len(data_df))
     
-    standardized_values = scaler.transform(features_df.values)
+    standardized_values = scaler.transform(features_df)
     predictions = model.predict(standardized_values).ravel()
     threshold = 0.10505
     return (predictions > threshold).astype(int)
