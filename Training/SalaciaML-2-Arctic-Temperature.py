@@ -41,7 +41,7 @@ try:
     print("Dataset 'UDASH-SML2A-Temperature-test.csv' loaded successfully.")
 except FileNotFoundError:
     print("Error: 'UDASH-SML2A-Temperature-test.csv' not found.")
-    print("Please ensure the cleaned data file is in the same directory.")
+    print("Please ensure the data file is in the same directory.")
     exit()
 
 # Drop profiles with quality flags (QF) indicating definitively bad data (e.g., 3)
