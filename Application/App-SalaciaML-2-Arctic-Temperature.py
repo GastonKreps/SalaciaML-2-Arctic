@@ -1,6 +1,6 @@
 # SalaciaML_Arctic_Temperature.py
 
-print("--- Script SalaciaML_Arctic_Temperature.py starting ---")
+print("--- Script App-SalaciaML-2-Arctic-Temperature.py starting ---")
 
 # --- 1. Import Libraries ---
 import pandas as pd
