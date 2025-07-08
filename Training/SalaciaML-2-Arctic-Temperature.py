@@ -1,6 +1,6 @@
 # SalaciaML_Arctic_Temperature.py
 
-print("--- Script SalaciaML_Arctic_Temperature.py starting ---")
+print("--- SalaciaML-2-Arctic-Temperature.py starting ---")
 
 # --- 1. Import Libraries ---
 import pandas as pd
@@ -35,7 +35,7 @@ pd.options.mode.chained_assignment = None
 
 # --- 3. Data Loading and Preprocessing ---
 
-# Load the dataset
+# Load the dataset sample created in the previous step
 try:
     data = pd.read_csv('UDASH-SML2A-Temperature-test.csv')
     print("Dataset 'UDASH-SML2A-Temperature-test.csv' loaded successfully.")
@@ -44,10 +44,10 @@ except FileNotFoundError:
     print("Please ensure the data file is in the same directory.")
     exit()
 
-# Drop profiles with quality flags (QF) indicating definitively bad data (e.g., 3)
+# Drop profiles with quality flags (QF_temp) indicating definitively bad data (e.g., 3)
 # These are not used for training.
 data.drop(data[data['Temp_Trad_QF'] == 3].index, inplace=True)
-data.drop(data[data['QF'] == 3].index, inplace=True)
+data.drop(data[data['QF_temp'] == 3].index, inplace=True)
 
 
 # Select only profiles that have at least one traditional flag for suspicious
@@ -55,10 +55,10 @@ data.drop(data[data['QF'] == 3].index, inplace=True)
 all_suspect_profiles = data[data['Temp_Trad_QF'].isin([2, 4])]
 data2_4 = data[data.Prof_no.isin(np.unique(all_suspect_profiles.Prof_no.unique()))]
 
-# Binarize the target variable 'QF'. We want to predict 'bad' (1) vs 'good' (0).
+# Binarize the target variable 'QF_temp'. We want to predict 'bad' (1) vs 'good' (0).
 # Codes 2, 4, 12, 14 are considered 'bad data' flags.
-data2_4['QF'].replace([2, 4, 12, 14], 1, inplace=True)
-data2_4['QF'][data2_4['QF'] != 1] = 0
+data2_4['QF_temp'].replace([2, 4, 12, 14], 1, inplace=True)
+data2_4['QF_temp'][data2_4['QF_temp'] != 1] = 0
 
 # Remove any rows with placeholder values like -999
 data2_4.fillna(-999, inplace=True)
@@ -84,7 +84,8 @@ features = [
     'year', 'month', 'Longitude_[deg]', 'Latitude_[deg]', 'Depth_[m]',
     'Temperature_[degC]', 'Temp_gradient_[degC/m]', 'Temp_gradient_[m/degC]'
 ]
-target = 'QF'
+# Define the target variable using the new column name
+target = 'QF_temp'
 
 # Split data into training, validation, and test sets based on profile numbers
 profile_ids = bad_data.Prof_no.unique()
