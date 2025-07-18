@@ -26,25 +26,14 @@ access to our method, we have implemented SalaciaML-2-Arctic as a web
 service at https://mvre.autoqc.cloud.awi.de, where users simply upload
 their data for the QC without programming or any extra software installation.
 
+## Docker
+
+A convenient way to use our algorithms is within an encapsulated
+Docker environment. Therefore we provide the needed files to create a
+Docker image and run a Docker container.
+
 ### License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 
-<!-- This files contains the code to train a machine learning model for predicting data quality. Data can be download from Pangaea (https://www.pangaea.de/)   -->
-
-<!-- ## Requirements: -->
-<!-- * Python 3.x -->
-<!-- * Pandas -->
-<!-- * Matplotlib -->
-<!-- * NumPy -->
-<!-- * TensorFlow & Keras -->
-<!-- * Scikit-learn -->
-<!-- * Seaborn -->
-<!-- * A data file named `UDASH-SML2A-Salinity.csv` or `UDASH-SML2A-Temperature.csv` in the same directory as the script, or the `DATA_FILE_PATH` variable updated accordingly. -->
-
-<!-- ## How to Run: -->
-<!-- 1.  Ensure all required libraries are installed (`pip install pandas matplotlib numpy tensorflow scikit-learn seaborn`). -->
-<!-- 2.  Place the `UDASH-SML2A-Salinity.csv` or `UDASH-SML2A-Temperature.csv` file in the correct location. -->
-<!-- 3.  Run the script: `python SalaciaML_Arctic_Salinity.py` or `python SalaciaML_Arctic_Temperature.py`  -->
-<!-- 4.  Output (model files, history, plots) will be saved in the `./model_output/` directory. -->

@@ -1,0 +1,7 @@
+version: '2'
+services:
+  autoqc:
+   image: autoqc-dev
+   volumes:
+    - ../Training:/root/Training
+    - ../Application:/root/Application
