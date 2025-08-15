@@ -154,13 +154,55 @@ def predict_data_salinity(data_df, model, scaler):
     threshold = 0.10505
     return (predictions > threshold).astype(int)
 
-# --- 5. Main Execution ---
+# --- 5. Statistics Generation ---
+def generate_and_save_stats(df, output_path="stats_sal.txt"):
+    """Generates and saves QC statistics to a text file based on the final ML quality flag."""
+    total_samples = len(df)
+    if total_samples == 0:
+        print("Warning: DataFrame is empty. Cannot generate stats.")
+        return
+
+    # Use the final ML Quality Flag for statistics
+    final_qf_col = 'ML_QF_Salinity'
+    
+    # Calculate counts
+    good_samples = (df[final_qf_col] == 0).sum()
+    bad_samples = total_samples - good_samples
+    flag_2_count = (df[final_qf_col] == 2).sum()
+    flag_4_count = (df[final_qf_col] == 4).sum()
+
+    # Calculate percentages, avoiding division by zero
+    good_percent = (good_samples / total_samples) * 100 if total_samples > 0 else 0
+    bad_percent = (bad_samples / total_samples) * 100 if total_samples > 0 else 0
+    flag_2_percent = (flag_2_count / total_samples) * 100 if total_samples > 0 else 0
+    flag_4_percent = (flag_4_count / total_samples) * 100 if total_samples > 0 else 0
+
+    # Create the statistics string
+    stats_content = (
+        f" SalaciaML Arctic Salinity Application Stats Output\n"
+        f"- Total samples: {total_samples}, 100.0%\n"
+        f"- Good: {good_samples}, {good_percent:.1f}%\n"
+        f"- Bad: {bad_samples}, {bad_percent:.1f}%\n"
+        f"- Flag 2: {flag_2_count}, {flag_2_percent:.1f}%\n"
+        f"- Flag 4: {flag_4_count}, {flag_4_percent:.1f}%\n"
+    )
+
+    # Save the statistics to a file
+    try:
+        with open(output_path, 'w') as f:
+            f.write(stats_content)
+        print(f"Statistics summary saved to {output_path}")
+    except Exception as e:
+        print(f"Error saving statistics file: {e}")
+
+# --- 6. Main Execution ---
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Apply QC to Salinity data.")
     parser.add_argument('--input', default='TEST_DATA.csv', help='Input CSV file path.')
     parser.add_argument('--output', default='Salinity_Output_Salacia.csv', help='Output CSV file path.')
     parser.add_argument('--model', default='salinity_model.keras', help='Keras model file (.keras).')
     parser.add_argument('--scaler', default='salinity_scaler.pkl', help='Scaler file (.pkl).')
+    parser.add_argument('--stats', default='stats_sal.txt', help='Output statistics file path.')
     args = parser.parse_args()
 
     print(f"Starting Salinity QC: Input='{args.input}'")
@@ -172,9 +214,6 @@ if __name__ == "__main__":
 
     try:
         input_data = pd.read_csv(args.input, encoding='latin1')
-        # Handle duplicate QF columns by renaming them
-        #if 'QF' in input_data.columns and 'QF.1' in input_data.columns:
-            #input_data.rename(columns={'QF': 'QF_Temp', 'QF.': 'QF_Sal'}, inplace=True)
     except Exception as e:
         print(f"Error reading {args.input}: {e}. Exiting."); exit(1)
 
@@ -198,6 +237,8 @@ if __name__ == "__main__":
         
         final_cols = original_columns + ['Trad_QF_Salinity', 'ML_QF_Salinity']
         final_df = processed_data[[col for col in final_cols if col in processed_data.columns]]
+        
+        generate_and_save_stats(final_df, args.stats)
         
         try:
             final_df.to_csv(args.output, index=False)
