@@ -5,8 +5,7 @@ The Python scripts perform the ML training on UDASH data.
 ## Data
 
 Download UDASH data at:
-- Temperature: https://doi.pangaea.de/10.1594/PANGAEA.973235 !!!!! update
-- Salininty: https://doi.pangaea.de/10.1594/PANGAEA.973235 !!!!! update
+- https://doi.pangaea.de/10.1594/PANGAEA.983690 (two files)
 
 Name of the data files should be
 - UDASH-SML2A-Temperature.csv
